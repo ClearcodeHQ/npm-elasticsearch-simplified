@@ -1,0 +1,35 @@
+{
+  "name": "elasticsearch-simplified",
+  "version": "0.9.0",
+  "description": "Simplifies connection retry logic to Elasticsearch.",
+  "main": "src/elasticsearch-connector.js",
+  "scripts": {
+    "test:unit": "mocha src/tests/unit --exit",
+    "lint": "eslint .",
+    "linter-fix": "eslint --fix ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ClearcodeHQ/npm-elasticsearch-simplified"
+  },
+  "keywords": [
+    "elasticsearch"
+  ],
+  "contributors": [
+    "Paweł Michalik"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "elasticsearch": "^14.1.0",
+    "synchronous-timeout": "https://github.com/ClearcodeHQ/npm-synchronous-timeout.git"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
+    "eslint": "^4.16.0",
+    "eslint-config-strongloop": "^2.1.0",
+    "mocha": "^5.0.0",
+    "sinon": "^4.2.2",
+    "proxyquire": "^2.0.0"
+  }
+}
