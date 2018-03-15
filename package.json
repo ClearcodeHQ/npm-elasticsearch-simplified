@@ -1,5 +1,5 @@
 {
-  "name": "elasticsearch-simplified",
+  "name": "@clearcodehq/elasticsearch-simplified",
   "version": "0.9.0",
   "description": "Simplifies connection retry logic to Elasticsearch.",
   "main": "src/elasticsearch-connector.js",
@@ -21,7 +21,7 @@
   "license": "MIT",
   "dependencies": {
     "elasticsearch": "^14.1.0",
-    "synchronous-timeout": "https://github.com/ClearcodeHQ/npm-synchronous-timeout.git"
+    "@clearcodehq/synchronous-timeout": "^0.9.0"
   },
   "devDependencies": {
     "chai": "^4.1.2",
