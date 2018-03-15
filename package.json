@@ -1,6 +1,6 @@
 {
   "name": "@clearcodehq/elasticsearch-simplified",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Simplifies connection retry logic to Elasticsearch.",
   "main": "src/elasticsearch-connector.js",
   "scripts": {

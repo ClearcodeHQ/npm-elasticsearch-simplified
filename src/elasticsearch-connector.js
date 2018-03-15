@@ -1,6 +1,6 @@
 'use strict';
 
-const timeout = require('synchronous-timeout');
+const timeout = require('@clearcodehq/synchronous-timeout');
 
 const elasticsearch = require('elasticsearch');
 
