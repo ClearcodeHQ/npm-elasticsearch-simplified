@@ -19,6 +19,8 @@ function Connector(userConfig) {
     Object.assign(config, userConfig);
   }
 
+  config.hosts = config.host !== undefined && config.host.indexOf(',') > -1 ? config.host.split(',') : `${config.host}:${config.port}`;
+
   async function connectToElasticsearch(retryAfter) {
     console.log('Connecting to Elasticsearch');
 
@@ -27,15 +29,23 @@ function Connector(userConfig) {
       config.retryAfter *= 2;
     }
 
+    let hosts = [];
+    Object.values(config.hosts).forEach(function(host) {
+      hosts.push({host: host, port: config.port});
+    });
+
     let client = new elasticsearch.Client({
-      host: `${config.host}:${config.port}`,
+      host: hosts,
     });
 
     return client.ping({
       requestTimeout: config.requestTimeout,
     })
       .then(function() {
-        console.log('Connected to Elasticsearch');
+        console.log('Connected to Elasticsearch nodes:');
+        client.transport.connectionPool._conns.alive.forEach(function(aliveConnection) {
+            console.log(`id: ${aliveConnection.id}, status: ${aliveConnection.status}`);
+        });
         return client;
       })
       .catch(function(exception) {
