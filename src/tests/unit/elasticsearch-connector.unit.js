@@ -9,9 +9,16 @@ beforeEach(function() {
 
   global.FakeClient = sinon.stub();
   FakeClient.prototype.create = sinon.stub();
+  FakeClient.prototype.transport = sinon.stub();
+  FakeClient.prototype.transport.connectionPool = sinon.stub();
+  FakeClient.prototype.transport.connectionPool._conns = sinon.stub();
+  FakeClient.prototype.transport.connectionPool._conns.alive = [
+    {id: 1, status: 'ok'},
+    {id: 2, status: 'not ok'},
+  ];
 
   global.EsConnector = proxyquire('./../../elasticsearch-connector.js', {
-    'synchronous-timeout': timeout,
+    '@clearcodehq/synchronous-timeout': timeout,
     elasticsearch: {Client: FakeClient},
   });
 });
