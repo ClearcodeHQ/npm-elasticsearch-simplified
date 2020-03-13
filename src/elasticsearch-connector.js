@@ -2,7 +2,7 @@
 
 const timeout = require('@clearcodehq/synchronous-timeout');
 
-const elasticsearch = require('elasticsearch');
+const elasticsearch = require('@elastic/elasticsearch');
 
 class Connector {
 
@@ -12,7 +12,7 @@ class Connector {
     this.retryAfter = 5000;
 
     this.config = {
-      host: [`${process.env.ELASTIC_HOST || 'localhost'}:${process.env.ELASTIC_P1 || '9200'}`],
+      node: [`${process.env.ELASTIC_HOST || 'http://localhost'}:${process.env.ELASTIC_P1 || '9200'}`],
     };
 
     this._setupConfig(userConfig);
@@ -34,18 +34,18 @@ class Connector {
     }
 
     if (
-      typeof userConfig.host === 'string' && userConfig.host.trim().length > 0
+      typeof userConfig.node === 'string' && userConfig.node.trim().length > 0
       && typeof userConfig.port === 'number'
     ) {
-      userConfig.host = userConfig.host.split(',').map(host => this.hostMapper(host, userConfig.port));
+      userConfig.node = userConfig.node.split(',').map(node => this.nodeMapper(node, userConfig.port));
       delete userConfig.port;
     }
 
     if (
-      typeof userConfig.hosts === 'string' && userConfig.hosts.trim().length > 0
+      typeof userConfig.nodes === 'string' && userConfig.nodes.trim().length > 0
       && typeof userConfig.port === 'number'
     ) {
-      userConfig.hosts = userConfig.hosts.split(',').map(host => this.hostMapper(host, userConfig.port));
+      userConfig.nodes = userConfig.nodes.split(',').map(node => this.nodeMapper(node, userConfig.port));
       delete userConfig.port;
     }
 
@@ -92,11 +92,11 @@ class Connector {
     return this.elasticsearchConnectionRetries;
   }
 
-  hostMapper(host, defaultPort) {
-    if (host.indexOf(':') > -1) {
-      return host;
+  nodeMapper(node, defaultPort) {
+    if (/\:[\d]{1,5}/.test(node)) {
+      return node;
     } else {
-      return `${host}:${defaultPort}`;
+      return `${node}:${defaultPort}`;
     }
   }
 }

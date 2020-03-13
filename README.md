@@ -21,7 +21,7 @@ const EsConnector = require("elasticsearch-simplified");
 
 // You can, but don't have to pass the config array or any of its values
 const config = {
-    host: 'elasticsearch', // by default process.env.ELASTIC_HOST and when no specified - 'localhost'
+    node: 'elasticsearch', // by default process.env.ELASTIC_HOST and when no specified - 'http://localhost'
     port: 9200, // by default process.env.ELASTIC_P1 and when no specified - 9200
     maxElasticsearchConnectionRetries: 15, // by default 10
     retryAfter: 1000, // in miliseconds, by default 5000; every subsequent requests has twice as long waiting time
